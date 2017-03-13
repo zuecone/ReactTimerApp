@@ -11,12 +11,25 @@ var Controls = React.createClass({
     }
   },
   render: function(){
-    var {countdownStatus} = this.props;
+    var {countdownStatus,clockType} = this.props;
     var renderStartStopButton = () => {
-      if (countdownStatus === 'started'){
-        return <button class="button secondary" onClick={this.onStatusChage('paused')}>Pause</button>
-      }else if (countdownStatus === 'paused') {
-        return <button class="button primary" onClick={this.onStatusChage('started')}>Start</button>
+      //console.log(clockType);
+      if (clockType === 'timer') {
+        if (countdownStatus === 'started'){
+          //either can be used this.prpos.onStatusChage or the this.onStatusChage
+          return <button class="button secondary" onClick={() => this.props.onStatusChage('paused')}>Pause</button>
+            //this.onStatusChage('paused')}>Pause</button>
+        }else if (countdownStatus === 'paused' || countdownStatus === 'stopped') {
+          return <button class="button primary" onClick={this.onStatusChage('started')}>Start</button>
+        }
+      }else {
+        if (countdownStatus === 'started'){
+          //either can be used this.prpos.onStatusChage or the this.onStatusChage
+          return <button class="button secondary" onClick={() => this.props.onStatusChage('paused')}>Pause</button>
+            //this.onStatusChage('paused')}>Pause</button>
+        }else if (countdownStatus === 'paused') {
+          return <button class="button primary" onClick={this.onStatusChage('started')}>Start</button>
+        }
       }
     };
 
